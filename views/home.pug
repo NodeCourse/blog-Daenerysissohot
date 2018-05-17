@@ -5,23 +5,45 @@ html
 
     body
         ul
-            h2 Jerem.v Website
-
-
+            h2 www.GameReviews.com by Jeremie Vancutsem
+            br
+            h2 liste des jeux
             for post in posts
                 article
                 h1 #{post.title}
+                p evaluation :
+                h1 #{post.eval} /5
+                p review :
+                h1 #{post.review}
+                p nombre de like :
 
-                p si tu kiff met un poce ble ma couille ! :
+                p nombre de dislike :
+
+
+                p Noter cette review :
                 form(method="post", action="/api/post/" + post.id + "/upvote")
-                    button(type="submit") upvote
+                    button(type="submit") Like
 
                 form(method="post", action="/api/post/" + post.id + "/downvote")
-                    button(type="submit") downvote
-                p Rajouter un post :
+                    button(type="submit") Dislike
+
+                p vous aussi vous pouvez rajouter votre review ! :
+                p nom du jeu :
                 form(method="post", action="/api/post/")
                     input(type="text", name="title", placeholder="Post Title ...")
-                    button(type="submit") Post
+                    p votre commentaire :
+                    input(type="text", name="review", placeholder="Post review ...")
+                    p evaluer votre jeu (de 0 à 5) :
+                    input(type="number", name="eval", placeholder="Post eval ...")
+
+                    button(type="submit") Valider votre Review
+
+                    
+
+
+
+
+
 
 
 
