@@ -7,7 +7,19 @@ html
         ul
             h2 www.GameReviews.com by Jeremie Vancutsem
             br
-            h2 liste des jeux
+
+            h2 vous aussi vous pouvez rajouter votre review ! :
+                form(method="post", action="/api/post/")
+                    input(type="text", name="title", placeholder="nom du jeu")
+                    br
+                    input(type="text", name="review", placeholder="votre commentaire")
+                    br
+                    input(type="number", name="eval", placeholder="evaluer (de 0 à 5)")
+                    br
+                    button(type="submit") Valider votre Review
+
+
+            h2 liste des reviews
             for post in posts
                 article
                 h1 #{post.title}
@@ -15,10 +27,8 @@ html
                 h1 #{post.eval} /5
                 p review :
                 h1 #{post.review}
-                p nombre de like :
-
-                p nombre de dislike :
-
+                p nombre de vote :
+                h1 #{post.votes.length}
 
                 p Noter cette review :
                 form(method="post", action="/api/post/" + post.id + "/upvote")
@@ -27,16 +37,7 @@ html
                 form(method="post", action="/api/post/" + post.id + "/downvote")
                     button(type="submit") Dislike
 
-                p vous aussi vous pouvez rajouter votre review ! :
-                p nom du jeu :
-                form(method="post", action="/api/post/")
-                    input(type="text", name="title", placeholder="Post Title ...")
-                    p votre commentaire :
-                    input(type="text", name="review", placeholder="Post review ...")
-                    p evaluer votre jeu (de 0 à 5) :
-                    input(type="number", name="eval", placeholder="Post eval ...")
 
-                    button(type="submit") Valider votre Review
 
                     
 
