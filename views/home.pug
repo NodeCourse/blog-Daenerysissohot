@@ -1,0 +1,51 @@
+html
+    head
+        title Exo4 jerem.v
+        link(rel="stylesheet",href="styles.css")
+
+    body
+        ul
+            h2 www.GameReviews.com by Jeremie Vancutsem
+            br
+
+            h2 vous aussi vous pouvez rajouter votre review ! :
+                form(method="post", action="/api/post/")
+                    input(type="text", name="title", placeholder="nom du jeu")
+                    br
+                    input(type="text", name="review", placeholder="votre commentaire")
+                    br
+                    input(type="number", name="eval", placeholder="evaluer (de 0 à 5)")
+                    br
+                    button(type="submit") Valider votre Review
+
+
+            h2 liste des reviews
+            for post in posts
+                article
+                h1 #{post.title}
+                p evaluation :
+                h1 #{post.eval} /5
+                p review :
+                h1 #{post.review}
+                p nombre de vote :
+                h1 #{post.votes.length}
+
+                p Noter cette review :
+                form(method="post", action="/api/post/" + post.id + "/upvote")
+                    button(type="submit") Like
+
+                form(method="post", action="/api/post/" + post.id + "/downvote")
+                    button(type="submit") Dislike
+
+
+
+                    
+
+
+
+
+
+
+
+
+
