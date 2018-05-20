@@ -1,0 +1,47 @@
+html
+    head
+        title Exo4 jerem.v
+        link(rel="stylesheet",href="styles.css")
+
+    body
+        ul
+            h2 Questionnaire by Jeremie Vancutsem
+            br
+            form(method="post", action="/api/post/")
+                p créer votre questionnaire :
+                input(type="text", name="question1", placeholder="Votre 1er question")
+                br
+                input(type="text", name="question2", placeholder="Votre 2nd question")
+                br
+                input(type="text", name="question3", placeholder="Votre 3e question")
+                br
+                button(type="submit") Valider votre  questionnaire
+
+
+
+            h2 liste des questionnaires
+            for post in posts
+                form(method="reponse", action="/api/reponse/")
+                    p question 1 :
+                    h1 #{post.question1}
+                    input(type="text", name="reponse1", placeholder="réponse ? ")
+                    p question 2 :
+                    h1 #{post.question2}
+                    input(type="text", name="reponse2", placeholder="réponse ?")
+                    p question 3:
+                    h1 #{post.question3}
+                    input(type="text", name="reponse3", placeholder="réponse ?")
+                    button(type="submit") valider vos questions
+
+
+
+                    
+
+
+
+
+
+
+
+
+
