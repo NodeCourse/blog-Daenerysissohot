@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended:true}));
 
 
 
-const db = new Sequelize('database','root','', {
+const dbquest = new Sequelize('databasequestionnaire','root','', {
     host: 'localhost',
     dialect:'mysql'
 });
@@ -23,81 +23,42 @@ app.get('/', (req, res ) => {
         .then(posts => res.render('home', {posts}));
 });
 
-/*
-app.post('/api/post', (req,res) => {
-    const { title,content } = req.body;
-    Post
-        .create({title,content})
-        .then(()=> res.redirect('/'))
+app.get('/', (req, res ) => {
+    Reponse
+        .findAll()
+        .then(reponses => res.render('home', {reponses}));
 });
-*/
+
 app.post('/api/post', (req,res) => {
-    const  title = req.body.title;
-    const review = req.body.review;
-    const eval = req.body.eval;
+    const question1 = req.body.question1;
+    const question2 = req.body.question2;
+    const question3 = req.body.question3;
     Post
-        .create({title,review,eval})
+        .create({question1,question2,question3})
         .then(()=> {
             res.redirect('/')
         })
 });
 
-
-
-
-
-
-/*
-const User = db.define ('user', {
-    fullname: { type: Sequelize.STRING },
-    email: { type: Sequelize.STRING }
+app.post('/api/post', (req,res) => {
+    const question1 = req.body.question1;
+    const question2 = req.body.question2;
+    const question3 = req.body.question3;
+    Post
+        .create({question1,question2,question3})
+        .then(()=> {
+            res.redirect('/')
+        })
 });
 
-
-
-User
-    .sync()
-    .then(() => {
-        User.create({
-            fullname: 'Lara Croft',
-            email: 'Lara.croft@gmail.com'
-        });
-    })
-    .then(() => {
-        User.create({
-            fullname: 'Solid snake',
-            email: 'solid.snake@gmail.com'
-        });
-    })
-    .then(() => {
-        return User.findAll();
-    })
-    .then((users) => {
-        console.log(users);
-    });
-*/
-app.post('/api/post/:postID/upvote', (req, res) => {
-    Vote
-        .create({ action: 'up',postId: req.params.postId})
-        .then(() => res.redirect('/'));
-});
-
-app.post('/api/post/:postID/downvote', (req, res) => {
-    Vote
-        .create({ action: 'down',postId: req.params.postId})
-        .then(() => res.redirect('/'));
-});
-
-
-
-const Post = db.define('post', {
-    title:{
+const Post = dbquest.define('post', {
+    question1:{
         type:Sequelize.STRING
     },
-    eval:{
+    question2:{
         type:Sequelize.STRING
     },
-    review:{
+    question3:{
         type:Sequelize.STRING
     }
 });
@@ -106,41 +67,50 @@ Post
     .sync()
     .then(()=>{
         Post.create({
-            title: "Fortnite",
-            eval:"4",
-            review:" super jeux !"
+            question1: " 2+2 = quoi ?",
+            question2:"la capital de l'Andorre",
+            question3:" Miroir c'est qui le bg?"
         })
     });
 Post
 .sync()
     .then(()=>{
         Post.create({
-            title: "PUBG",
-            eval:"2",
-            review: " c'est nul "
+            question1: "qui a volé l'orange ?",
+            question2:"qu'elle est la réponse a toute les questions ?",
+            question3:" qui a suicidé Hitler ?"
 
         })
     });
-Post
-.sync()
-    .then(()=>{
-        Post.create({
-            title: "OverWatch",
-            eval:"3",
-            review: " ça va "
-        })
-    });
 
-const Vote = db.define('vote', {
-    action: {
-        type: Sequelize.ENUM('up','down')
+
+const Reponse = dbquest.define('reponses', {
+    reponse1:{
+        type:Sequelize.STRING
+    },
+    reponse2:{
+        type:Sequelize.STRING
+    },
+    reponse3:{
+        type:Sequelize.STRING
     }
 });
+// Le formulaire pour répondre aux questions rencontre un probleme
+// il ne trouve pas /api/reponse/ donc il ne peut pas enregistrer mes reponse dans la database
+// je n'ai jamais reussi a trouver la cause
+Reponse
+    .sync()
+    .then(()=>{
+        Reponse.create({
+            reponse1: "c'est pas moi !",
+            reponse2:"42",
+            reponse3:" c'est Louis Charavner! "
 
-Post.hasMany(Vote);
+        })
+    });
 
 
-Vote.sync()
+
 
 app.listen(3000, () => {
     console.log('listening on port 3000');

@@ -5,38 +5,35 @@ html
 
     body
         ul
-            h2 www.GameReviews.com by Jeremie Vancutsem
+            h2 Questionnaire by Jeremie Vancutsem
             br
-            h2 liste des jeux
+            form(method="post", action="/api/post/")
+                p créer votre questionnaire :
+                input(type="text", name="question1", placeholder="Votre 1er question")
+                br
+                input(type="text", name="question2", placeholder="Votre 2nd question")
+                br
+                input(type="text", name="question3", placeholder="Votre 3e question")
+                br
+                button(type="submit") Valider votre  questionnaire
+
+
+
+            h2 liste des questionnaires
             for post in posts
-                article
-                h1 #{post.title}
-                p evaluation :
-                h1 #{post.eval} /5
-                p review :
-                h1 #{post.review}
-                p nombre de like :
+                form(method="reponse", action="/api/reponse/")
+                    p question 1 :
+                    h1 #{post.question1}
+                    input(type="text", name="reponse1", placeholder="réponse ? ")
+                    p question 2 :
+                    h1 #{post.question2}
+                    input(type="text", name="reponse2", placeholder="réponse ?")
+                    p question 3:
+                    h1 #{post.question3}
+                    input(type="text", name="reponse3", placeholder="réponse ?")
+                    button(type="submit") valider vos questions
 
-                p nombre de dislike :
 
-
-                p Noter cette review :
-                form(method="post", action="/api/post/" + post.id + "/upvote")
-                    button(type="submit") Like
-
-                form(method="post", action="/api/post/" + post.id + "/downvote")
-                    button(type="submit") Dislike
-
-                p vous aussi vous pouvez rajouter votre review ! :
-                p nom du jeu :
-                form(method="post", action="/api/post/")
-                    input(type="text", name="title", placeholder="Post Title ...")
-                    p votre commentaire :
-                    input(type="text", name="review", placeholder="Post review ...")
-                    p evaluer votre jeu (de 0 à 5) :
-                    input(type="number", name="eval", placeholder="Post eval ...")
-
-                    button(type="submit") Valider votre Review
 
                     
 
